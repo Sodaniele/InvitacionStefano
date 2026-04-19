@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* Usa un color estándar mientras arreglamos todo para que no falle */
+  @apply antialiased bg-white text-slate-800;
+}
