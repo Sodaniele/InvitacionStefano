@@ -2,78 +2,126 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export const RSVPForm = () => {
-  const [status, setStatus] = useState('');
+  const [form, setForm] = useState({
+    nombre: '',
+    asistencia: 'Sí, iremos',
+    adultos: '',
+    ninos: '',
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus('sending');
-    
-    // Simulación de envío
-    setTimeout(() => {
-      setStatus('success');
-    }, 1500);
+  const phoneNumber = '34603273763';
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (status === 'success') {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="text-center py-10 px-4"
-      >
-        <div className="text-4xl mb-4">🍼</div>
-        <h3 className="font-serif text-2xl text-[#546E7A] mb-2">¡Gracias por confirmar!</h3>
-        <p className="text-sm text-[#546E7A] opacity-70">Estamos deseando verte en el Baby Shower de Leo.</p>
-      </motion.div>
-    );
-  }
+  const handleSendWhatsApp = (e) => {
+    e.preventDefault();
+
+    const message = `
+🎉 Confirmación cumpleaños de Stefano 🎉
+
+Nombre o familia:
+${form.nombre || '-'}
+
+Asistencia:
+${form.asistencia || '-'}
+
+Cantidad de adultos:
+${form.adultos || '-'}
+
+Cantidad de niños:
+${form.ninos || '-'}
+    `.trim();
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-2">
-      <div className="flex flex-col gap-2">
-        <label className="text-[10px] uppercase tracking-[0.2em] text-[#546E7A] font-bold ml-2">Nombre Completo</label>
-        <input 
-          required
-          type="text" 
-          placeholder="Ej: Maria y Daniel"
-          className="bg-white border border-[#E3F2FD] rounded-full px-6 py-3 text-sm outline-none focus:border-[#546E7A] transition-colors text-[#546E7A]"
-        />
+    <motion.form
+      onSubmit={handleSendWhatsApp}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mx-auto w-full max-w-lg"
+    >
+      <div className="space-y-5 text-left">
+        <div>
+          <label className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#7A5C12]">
+            Nombre o familia
+          </label>
+          <input
+            type="text"
+            name="nombre"
+            value={form.nombre}
+            onChange={handleChange}
+            placeholder="Ej: Maria, Daniel e hijos"
+            className="w-full rounded-[22px] border border-[#F3D67A] bg-white px-5 py-4 text-sm text-[#7A5C12] outline-none transition placeholder:opacity-40 focus:border-[#D4A72C] focus:ring-2 focus:ring-[#F3D67A]/40"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#7A5C12]">
+            Asistencia
+          </label>
+          <select
+            name="asistencia"
+            value={form.asistencia}
+            onChange={handleChange}
+            className="w-full rounded-[22px] border border-[#F3D67A] bg-white px-5 py-4 text-sm text-[#7A5C12] outline-none transition focus:border-[#D4A72C] focus:ring-2 focus:ring-[#F3D67A]/40"
+          >
+            <option>Sí, iremos</option>
+            <option>No podremos asistir</option>
+            <option>Lo confirmamos pronto</option>
+          </select>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div>
+            <label className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#7A5C12]">
+              Adultos
+            </label>
+            <input
+              type="number"
+              min="0"
+              name="adultos"
+              value={form.adultos}
+              onChange={handleChange}
+              placeholder="0"
+              className="w-full rounded-[22px] border border-[#F3D67A] bg-white px-5 py-4 text-sm text-[#7A5C12] outline-none transition placeholder:opacity-40 focus:border-[#D4A72C] focus:ring-2 focus:ring-[#F3D67A]/40"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-[#7A5C12]">
+              Niños
+            </label>
+            <input
+              type="number"
+              min="0"
+              name="ninos"
+              value={form.ninos}
+              onChange={handleChange}
+              placeholder="0"
+              className="w-full rounded-[22px] border border-[#F3D67A] bg-white px-5 py-4 text-sm text-[#7A5C12] outline-none transition placeholder:opacity-40 focus:border-[#D4A72C] focus:ring-2 focus:ring-[#F3D67A]/40"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <label className="text-[10px] uppercase tracking-[0.2em] text-[#546E7A] font-bold ml-2">¿Venís a la fiesta?</label>
-        <select className="bg-white border border-[#E3F2FD] rounded-full px-6 py-3 text-sm outline-none focus:border-[#546E7A] transition-colors text-[#546E7A] appearance-none">
-          <option>Sí, ahí estaré!</option>
-          <option>Perdón, no puedo ir</option>
-        </select>
+      <div className="mt-8 text-center">
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="rounded-full bg-[#7A5C12] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-lg transition"
+        >
+          Confirmar por WhatsApp
+        </motion.button>
       </div>
-
-      <div className="flex flex-col gap-2">
-        <label className="text-[10px] uppercase tracking-[0.2em] text-[#546E7A] font-bold ml-2">Número de Adultos</label>
-        <input 
-          type="number" 
-          min="1" 
-          defaultValue="1"
-          className="bg-white border border-[#E3F2FD] rounded-full px-6 py-3 text-sm outline-none focus:border-[#546E7A] transition-colors text-[#546E7A]"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label className="text-[10px] uppercase tracking-[0.2em] text-[#546E7A] font-bold ml-2">Alergias o comentarios</label>
-        <textarea 
-          placeholder="Contanos si tenes alguna alergia o comentario..."
-          className="bg-white border border-[#E3F2FD] rounded-[25px] px-6 py-4 text-sm outline-none focus:border-[#546E7A] transition-colors text-[#546E7A] min-h-[100px] resize-none"
-        />
-      </div>
-
-      <motion.button
-        whileTap={{ scale: 0.95 }}
-        type="submit"
-        disabled={status === 'sending'}
-        className="bg-[#546E7A] text-white rounded-full py-4 text-[11px] uppercase tracking-[0.3em] font-bold mt-4 hover:bg-[#E3F2FD] hover:text-[#546E7A] transition-all shadow-md disabled:opacity-50"
-      >
-        {status === 'sending' ? 'Enviando...' : 'Confirmar Asistencia'}
-      </motion.button>
-    </form>
+    </motion.form>
   );
 };

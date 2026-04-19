@@ -9,7 +9,7 @@ export const GiftSection = () => (
       <motion.img
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        src="/Tractor1.png"
+        src="/Grua1.png"
         alt="Stefano constructor"
         className="mx-auto mb-6 w-40 drop-shadow-md"
       />
