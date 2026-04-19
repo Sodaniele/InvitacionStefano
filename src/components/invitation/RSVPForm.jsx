@@ -119,7 +119,7 @@ ${form.ninos || '-'}
           whileTap={{ scale: 0.97 }}
           className="rounded-full bg-[#7A5C12] px-10 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white shadow-lg transition"
         >
-          Confirmar por WhatsApp
+          Confirmar por WhatsApp!
         </motion.button>
       </div>
     </motion.form>
