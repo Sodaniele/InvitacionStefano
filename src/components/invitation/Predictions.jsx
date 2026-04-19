@@ -67,7 +67,7 @@ ${form.mensaje || '-'}
             className="rounded-[38px] border border-[#F3D67A]/60 bg-white p-8 shadow-sm"
           >
             <img
-              src="/Tractor4.png"
+              src="/Tractor1.png"
               alt="Tractor decorativo"
               className="mx-auto mb-5 w-24 drop-shadow-md"
             />
@@ -92,7 +92,7 @@ ${form.mensaje || '-'}
           >
             <img
               src="/Cono1.png"
-              alt="Personaje decorativo"
+              alt="Cono decorativo"
               className="mx-auto mb-5 w-24 drop-shadow-md"
             />
             <p className="mb-4 text-sm font-bold text-[#7A5C12]">
@@ -116,7 +116,7 @@ ${form.mensaje || '-'}
           >
             <img
               src="/Tractor2.png"
-              alt="Grúa decorativa"
+              alt="Tractor decorativo"
               className="mx-auto mb-5 w-24 drop-shadow-md"
             />
             <p className="mb-4 text-sm font-bold text-[#7A5C12]">
