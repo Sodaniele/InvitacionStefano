@@ -8,7 +8,7 @@ export const Predictions = () => {
     mensaje: '',
   });
 
-  const phoneNumber = '34603273763';
+  const phoneNumber = '5493364007281';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
