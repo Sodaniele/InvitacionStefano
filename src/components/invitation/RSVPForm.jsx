@@ -20,7 +20,7 @@ export const RSVPForm = () => {
     e.preventDefault();
 
     const message = `
-🎉 Confirmación cumpleaños de Stefano 🎉
+🎉 Confirmación cumpleaños de Stefano! 🎉
 
 Nombre o familia:
 ${form.nombre || '-'}
